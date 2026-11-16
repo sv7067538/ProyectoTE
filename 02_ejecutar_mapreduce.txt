@@ -1,0 +1,3 @@
+# Ejecutar dentro del contenedor hadoop-namenode-1
+hdfs dfs -rm -r -f /data/netflix/results/actores
+hadoop jar /opt/hadoop/share/hadoop/tools/lib/hadoop-streaming-*.jar -D yarn.app.mapreduce.am.env=HADOOP_MAPRED_HOME=/opt/hadoop -D mapreduce.map.env=HADOOP_MAPRED_HOME=/opt/hadoop -D mapreduce.reduce.env=HADOOP_MAPRED_HOME=/opt/hadoop -files /tmp/02_mapper_actores.py,/tmp/02_reducer_actores.py -input /data/netflix/clean/netflix_clean.csv -output /data/netflix/results/actores -mapper "python3 02_mapper_actores.py" -reducer "python3 02_reducer_actores.py"
